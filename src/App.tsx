@@ -1,28 +1,24 @@
-import { fetchDogIDs } from "./api/fetchDogIDs";
-
-import { useQuery } from "@tanstack/react-query";
 import "./App.css";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import LoginCard from "./components/LoginCard";
+import Dashboard from "./components/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
-  const { data, error, isLoading } = useQuery({ queryKey: ["dogIds"], queryFn: fetchDogIDs });
-
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
   return (
-    <>
+    <Router>
       <Navbar />
       <div className="flex justify-center mt-48">
-        <LoginCard />
+        <Routes>
+          <Route path="/login" element={<LoginCard />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
       </div>
-      <ul>
-        {data.map((id: string) => (
-          <li key={id}>{id}</li>
-        ))}
-      </ul>
-    </>
+    </Router>
   );
 }
 

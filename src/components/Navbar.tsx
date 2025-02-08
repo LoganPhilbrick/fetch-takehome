@@ -1,7 +1,24 @@
 import { useState } from "react";
+import { logout } from "../api/logout";
+import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
+import { useLocation } from "react-router-dom";
 
 export default function Navbar() {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const { pathname } = useLocation();
+
+  // Don't render navbar on the login page
+  if (pathname === "/login") return null;
+
+  const handleLogout = () => {
+    logout();
+    queryClient.invalidateQueries({ queryKey: ["dogIds"] });
+    navigate("/login");
+  };
 
   return (
     <>
@@ -34,45 +51,47 @@ export default function Navbar() {
               </div>
             </button>
             {/*      <!-- Navigation links --> */}
-            <ul
-              role="menubar"
-              aria-label="Select page"
-              className={`absolute left-0 top-0 z-[-1] h-[28.5rem] w-full justify-center overflow-hidden  overflow-y-auto overscroll-contain bg-white/90 px-8 pb-12 pt-24 font-medium transition-[opacity,visibility] duration-300 lg:visible lg:relative lg:top-0  lg:z-0 lg:flex lg:h-full lg:w-auto lg:items-stretch lg:overflow-visible lg:bg-white/0 lg:px-0 lg:py-0  lg:pt-0 lg:opacity-100 ${
-                isToggleOpen ? "visible opacity-100 backdrop-blur-sm" : "invisible opacity-0"
-              }`}
-            >
-              <li role="none" className="flex items-stretch">
-                <a
-                  role="menuitem"
-                  aria-haspopup="false"
-                  className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
-                  href="javascript:void(0)"
-                >
-                  <span>Home</span>
-                </a>
-              </li>
 
-              <li role="none" className="flex items-stretch">
-                <a
-                  role="menuitem"
-                  aria-haspopup="false"
-                  className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
-                  href="javascript:void(0)"
+            <>
+              <ul
+                role="menubar"
+                aria-label="Select page"
+                className={`absolute left-0 top-0 z-[-1] h-[28.5rem] w-full justify-center overflow-hidden  overflow-y-auto overscroll-contain bg-white/90 px-8 pb-12 pt-24 font-medium mr-6 transition-[opacity,visibility] duration-300 lg:visible lg:relative lg:top-0  lg:z-0 lg:flex lg:h-full lg:w-auto lg:items-stretch lg:overflow-visible lg:bg-white/0 lg:px-0 lg:py-0  lg:pt-0 lg:opacity-100 ${
+                  isToggleOpen ? "visible opacity-100 backdrop-blur-sm" : "invisible opacity-0"
+                }`}
+              >
+                <li role="none" className="flex items-stretch">
+                  <a
+                    role="menuitem"
+                    aria-haspopup="false"
+                    className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
+                    href="javascript:void(0)"
+                  >
+                    <span>Home</span>
+                  </a>
+                </li>
+
+                <li role="none" className="flex items-stretch">
+                  <a
+                    role="menuitem"
+                    aria-haspopup="false"
+                    className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
+                    href="javascript:void(0)"
+                  >
+                    <span>About</span>
+                  </a>
+                </li>
+              </ul>
+
+              <div className="flex items-center px-6 ml-auto lg:ml-0 lg:p-0">
+                <button
+                  className="inline-flex items-center justify-center h-10 gap-2 px-5 text-sm font-medium tracking-wide text-white transition duration-300 rounded shadow-md whitespace-nowrap bg-red-500 shadow-red-200 hover:bg-red-600 hover:shadow-sm hover:shadow-red-200 focus:bg-red-700 focus:shadow-sm focus:shadow-red-200 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-red-300 disabled:bg-red-300 disabled:shadow-none"
+                  onClick={handleLogout}
                 >
-                  <span>About</span>
-                </a>
-              </li>
-              <li role="none" className="flex items-stretch">
-                <a
-                  role="menuitem"
-                  aria-haspopup="false"
-                  className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
-                  href="javascript:void(0)"
-                >
-                  <span>Profile</span>
-                </a>
-              </li>
-            </ul>
+                  <span>Logout</span>
+                </button>
+              </div>
+            </>
           </nav>
         </div>
       </header>
