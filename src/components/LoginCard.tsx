@@ -1,29 +1,37 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { login } from "../api/login";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginCard() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const navigate = useNavigate();
 
-  const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: login,
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["login"] }),
+    onSuccess: () => {
+      navigate("/dashboard");
+    },
   });
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    mutate({ name: name, email: email });
+    mutate({ name, email });
   };
 
   return (
     <>
       {/*<!-- Component: Card with form --> */}
       <form className="overflow-hidden rounded-4xl bg-white text-slate-500 shadow-md shadow-slate-200 w-96 h-88.8">
+        <div>
+          <a id="WindUI" aria-label="WindUI logo" aria-current="page" className="flex justify-center font-medium items-center gap-2 whitespace-nowrap pt-4 pb-3 text-lg " href="javascript:void(0)">
+            <img className="w-18" src="https://img.icons8.com/?size=100&id=CJMxOJZyZfby&format=png&color=FD7E14" alt="fetch logo" />
+          </a>
+        </div>
         {/*  <!-- Body--> */}
-        <div className="p-6">
-          <header className="mb-4 text-center">
+        <div className="px-6 pb-6">
+          <header className="text-center">
             <h3 className="text-xl font-medium text-slate-700">Login</h3>
           </header>
           <div className="flex flex-col space-y-8">
