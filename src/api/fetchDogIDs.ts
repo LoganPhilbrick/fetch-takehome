@@ -1,4 +1,4 @@
-export const fetchDogIDs = async (setDogs: React.Dispatch<React.SetStateAction<string[]>>) => {
+export const fetchDogIDs = async () => {
   try {
     const response = await fetch("https://frontend-take-home-service.fetch.com/dogs/search", {
       method: "GET",
@@ -13,13 +13,8 @@ export const fetchDogIDs = async (setDogs: React.Dispatch<React.SetStateAction<s
     }
 
     const data = await response.json();
-    const resultIds = data.resultIds; // Assuming the response has resultIds
-
-    if (Array.isArray(resultIds)) {
-      setDogs(resultIds); // Update state in the parent component
-    } else {
-      console.error("Expected resultIds to be an array");
-    }
+    const resultIds = data.resultIds;
+    return resultIds;
   } catch (error) {
     console.error("Error fetching dogs:", error);
   }

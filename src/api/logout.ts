@@ -1,4 +1,4 @@
-export const logout = (setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>) => {
+export const logout = () => {
   fetch("https://frontend-take-home-service.fetch.com/auth/logout", {
     method: "POST",
     headers: {
@@ -6,5 +6,4 @@ export const logout = (setAuthenticated: React.Dispatch<React.SetStateAction<boo
     },
     credentials: "include",
   });
-  setAuthenticated(false);
 };
