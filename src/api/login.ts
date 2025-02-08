@@ -1,20 +1,20 @@
-export const login = async (setAuthenticated: React.Dispatch<React.SetStateAction<boolean>>) => {
+type UserCredentials = { name: string; email: string };
+
+export const login = async (UserCredentials: UserCredentials) => {
   fetch("https://frontend-take-home-service.fetch.com/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: "John Doe",
-      email: "john.doe@example.com",
+      name: UserCredentials.name,
+      email: UserCredentials.email,
     }),
     credentials: "include",
   })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Failed to authenticate");
-      } else {
-        setAuthenticated(true);
       }
       return response.text();
     })
