@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { logout } from "../api/logout";
 import { useNavigate } from "react-router-dom";
-import { useQueryClient } from "@tanstack/react-query";
+
 import { useLocation } from "react-router-dom";
 
 export default function Navbar() {
   const [isToggleOpen, setIsToggleOpen] = useState(false);
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
 
   const { pathname } = useLocation();
 
@@ -16,7 +15,7 @@ export default function Navbar() {
 
   const handleLogout = () => {
     logout();
-    queryClient.invalidateQueries({ queryKey: ["dogIds"] });
+
     navigate("/login");
   };
 

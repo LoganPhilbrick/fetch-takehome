@@ -1,17 +1,60 @@
-import { fetchDogIDs } from "../api/fetchDogIDs";
-import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { fetchIDs } from "../api/fetchIDs";
+import { fetchDogs } from "../api/fetchDogs";
+
+interface Dog {
+  id: string;
+  img: string;
+  name: string;
+  age: number;
+  zip_code: string;
+  breed: string;
+}
 
 export default function Dashboard() {
-  const { data, error, isLoading } = useQuery({ queryKey: ["dogIds"], queryFn: fetchDogIDs });
+  const [searchData, setSearchData] = useState<string[]>([]);
+  const [ids, setIds] = useState<string[]>([]);
+  const [dogsArray, setDogsArray] = useState<Dog[]>();
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
+  useEffect(() => {
+    const getSearchResults = async () => {
+      try {
+        const searchObj = await fetchIDs();
+        setSearchData(searchObj);
+        setIds(searchObj.resultIds);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+
+    getSearchResults();
+  }, []);
+
+  useEffect(() => {
+    const getDogObjects = async () => {
+      try {
+        const dogObjects = await fetchDogs(ids);
+        console.log(dogObjects);
+        setDogsArray(dogObjects);
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    };
+
+    getDogObjects();
+  }, [ids]);
+
+  useEffect(() => {
+    console.log(searchData);
+  }, [searchData]);
 
   return (
-    <ul>
-      {data.map((id: string) => (
-        <li key={id}>{id}</li>
-      ))}
-    </ul>
+    <>
+      <ul>
+        {dogsArray?.map((dog) => (
+          <li key={dog.id}>{dog.name}</li>
+        ))}
+      </ul>
+    </>
   );
 }

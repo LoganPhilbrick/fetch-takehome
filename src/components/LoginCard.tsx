@@ -1,4 +1,3 @@
-import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
 import { login } from "../api/login";
 import { useNavigate } from "react-router-dom";
@@ -8,16 +7,9 @@ export default function LoginCard() {
   const [email, setEmail] = useState<string>("");
   const navigate = useNavigate();
 
-  const { mutate } = useMutation({
-    mutationFn: login,
-    onSuccess: () => {
-      navigate("/dashboard");
-    },
-  });
-
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    mutate({ name, email });
+    login({ name, email }).then(() => navigate("/Dashboard"));
   };
 
   return (

@@ -1,12 +1,22 @@
-import { Navigate, Outlet } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { fetchDogIDs } from "../api/fetchDogIDs";
+import { useEffect } from "react";
+import { useNavigate, Outlet } from "react-router-dom";
+
+import { fetchIDs } from "../api/fetchIDs";
 
 export default function ProtectedRoute() {
-  const { error, isLoading } = useQuery({ queryKey: ["dogIds"], queryFn: fetchDogIDs });
+  const navigate = useNavigate(); // Hook for navigation
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <Navigate to="/login" replace />;
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        await fetchIDs(); // Attempt to fetch data
+      } catch (error) {
+        console.error("Authentication failed, redirecting to login:", error);
+        navigate("/login", { replace: true }); // Redirect on error
+      }
+    };
 
+    checkAuth();
+  }, [navigate]);
   return <Outlet />;
 }
