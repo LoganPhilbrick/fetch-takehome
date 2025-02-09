@@ -1,6 +1,6 @@
-export const fetchIDs = async () => {
+export const fetchIDs = async (pageLink: string) => {
   try {
-    const response = await fetch("https://frontend-take-home-service.fetch.com/dogs/search", {
+    const response = await fetch(`https://frontend-take-home-service.fetch.com${pageLink}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

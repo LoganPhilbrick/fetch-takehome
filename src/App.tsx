@@ -9,15 +9,14 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <div className="flex justify-center mt-48">
-        <Routes>
-          <Route path="/login" element={<LoginCard />} />
-          <Route element={<ProtectedRoute />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-          </Route>
-          <Route path="*" element={<Navigate to="/login" replace />} />
-        </Routes>
-      </div>
+
+      <Routes>
+        <Route path="/login" element={<LoginCard />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
     </Router>
   );
 }
