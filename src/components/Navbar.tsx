@@ -66,6 +66,8 @@ export default function Navbar() {
                     className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
                     href="javascript:void(0)"
                   >
+                    <img className="w-6" src="https://img.icons8.com/?size=100&id=83326&format=png&color=FD7E14" alt="fetch logo" />
+
                     <span>Home</span>
                   </a>
                 </li>
@@ -77,7 +79,9 @@ export default function Navbar() {
                     className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
                     href="javascript:void(0)"
                   >
-                    <span>About</span>
+                    <img className="w-6" src="https://img.icons8.com/?size=100&id=85338&format=png&color=FD7E14" alt="fetch logo" />
+
+                    <span>Favorites</span>
                   </a>
                 </li>
               </ul>

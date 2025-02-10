@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { fetchIDs } from "../api/fetchIDs";
 import { fetchDogs } from "../api/fetchDogs";
 import DogCard from "./DogCard";
+import TopBar from "./TopBar";
+import Pagination from "./Pagination";
 
 interface Dog {
   id: string;
@@ -63,19 +65,14 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-col items-center">
-      <div className="flex flex-wrap justify-evenly w-2/3 mt-24">
+      <TopBar />
+      <div className="flex flex-wrap justify-center w-5/6 mt-12">
         {dogsArray?.map((dog) => (
           <DogCard key={dog.id} dog={dog} />
         ))}
       </div>
       <div className="mb-12">
-        <button className={`bg-green-500 w-12 h-8 ${!prev ? "opacity-50 cursor-not-allowed" : ""}`} onClick={() => setPageLink(prev)} disabled={!prev}>
-          prev
-        </button>
-
-        <button className={`bg-green-500 w-12 h-8 ${!next ? "opacity-50 cursor-not-allowed" : ""}`} onClick={() => setPageLink(next)} disabled={!next}>
-          next
-        </button>
+        <Pagination setPageLink={setPageLink} prev={prev} next={next} />
       </div>
     </div>
   );
