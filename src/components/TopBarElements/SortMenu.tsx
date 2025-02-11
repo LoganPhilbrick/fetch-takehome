@@ -1,4 +1,9 @@
-export default function SortMenu() {
+import { Dispatch, SetStateAction } from "react";
+
+interface SortMenuProps {
+  setSort: Dispatch<SetStateAction<string>>;
+}
+export default function SortMenu({ setSort }: SortMenuProps) {
   return (
     <>
       {/*<!-- Component: Rounded large basic select --> */}
@@ -9,11 +14,13 @@ export default function SortMenu() {
           name="id-10"
           required
           className="peer relative h-10 w-full appearance-none rounded-xl border-2 border-neutral-300  px-4 text-slate-500 outline-none transition-all autofill:bg-white focus:border-emerald-500 focus-visible:outline-none focus:focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+          onChange={(e) => setSort(e.target.value)}
         >
           <option value="" disabled selected></option>
-          <option value="1">Option 1</option>
-          <option value="2">Option 2</option>
-          <option value="3">Option 3</option>
+          <option value="breed:asc">breed A-Z</option>
+          <option value="breed:desc">breed Z-A</option>
+          <option value="age:asc">youngest - oldest</option>
+          <option value="age:desc">oldest - youngest</option>
         </select>
         <label
           htmlFor="id-10"

@@ -3,10 +3,11 @@ import { fetchBreeds } from "../../api/fetchbreeds";
 
 interface SelectMenuProps {
   breeds: string[];
+  setSelectedBreed: Dispatch<SetStateAction<string>>;
   setBreeds: Dispatch<SetStateAction<string[]>>;
 }
 
-export default function SelectMenu({ breeds, setBreeds }: SelectMenuProps) {
+export default function SelectMenu({ breeds, setBreeds, setSelectedBreed }: SelectMenuProps) {
   useEffect(() => {
     fetchBreeds()
       .then((breedsArray) => {
@@ -25,8 +26,10 @@ export default function SelectMenu({ breeds, setBreeds }: SelectMenuProps) {
           name="id-10"
           required
           className="peer relative h-10 w-full appearance-none rounded-xl border-2 border-neutral-300 px-4 text-slate-500 outline-none transition-all autofill:bg-white focus:border-emerald-500 focus-visible:outline-none focus:focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+          onChange={(e) => setSelectedBreed(e.target.value)}
         >
           <option value="" disabled selected></option>
+          <option value="">All</option>
           {breeds?.map((breed, index) => (
             <option value={breed} key={index}>
               {breed}

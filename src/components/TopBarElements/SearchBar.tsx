@@ -1,16 +1,21 @@
-export default function FormElementsSearchRoundedBaseBasic() {
+interface SearchBarProps {
+  setZipCodeFilter: React.Dispatch<React.SetStateAction<string>>; // Typing the setPageLink function
+}
+
+export default function FormElementsSearchRoundedBaseBasic({ setZipCodeFilter }: SearchBarProps) {
   return (
     <>
       {/*<!-- Component: Rounded basic search input --> */}
-      <p className="mr-1 text-slate-500">Location </p>
+      <p className="mr-1 text-slate-500">Zip Code </p>
       <div className="relative w-1/3 mr-12 ">
         <input
           id="id-s03"
           type="search"
           name="id-s03"
-          placeholder="Search by location"
+          placeholder="Search by zip code"
           aria-label="Search content"
           className="peer relative h-10 w-full rounded-xl border-2 border-neutral-300 px-4 pr-12 text-md text-slate-500 outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 focus-visible:outline-none disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+          onChange={(e) => setZipCodeFilter(e.target.value)}
         />
         <svg
           xmlns="http://www.w3.org/2000/svg"

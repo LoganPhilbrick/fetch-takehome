@@ -17,7 +17,7 @@ export default function Pagination({ setPageLink, prev, next }: PaginationProps)
               className={`inline-flex h-10 items-center justify-center gap-4 rounded stroke-slate-700 px-4 text-sm font-medium text-slate-700 transition duration-300 hover:bg-emerald-50 hover:stroke-emerald-500 hover:text-emerald-500 focus:bg-emerald-50 focus:stroke-emerald-600 focus:text-emerald-600 focus-visible:outline-none ${
                 !prev ? "opacity-50 cursor-not-allowed" : ""
               }`}
-              onClick={() => setPageLink(prev)}
+              onClick={() => setPageLink(prev.split("&sort")[0])}
             >
               <span className="order-2">Prev</span>
               <svg
@@ -44,7 +44,7 @@ export default function Pagination({ setPageLink, prev, next }: PaginationProps)
               className={`inline-flex h-10 items-center justify-center gap-4 rounded stroke-slate-700 px-4 text-sm font-medium text-slate-700 transition duration-300 hover:bg-emerald-50 hover:stroke-emerald-500 hover:text-emerald-500 focus:bg-emerald-50 focus:stroke-emerald-600 focus:text-emerald-600 focus-visible:outline-none ${
                 !next ? "opacity-50 cursor-not-allowed" : ""
               }`}
-              onClick={() => setPageLink(next)}
+              onClick={() => setPageLink(next.split("&sort")[0])}
             >
               <span>Next </span>
               <svg
