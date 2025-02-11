@@ -23,7 +23,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState<boolean>(false);
   const [breeds, setBreeds] = useState<string[]>([]);
   const [selectedBreed, setSelectedBreed] = useState<string>("");
-  const [sort, setSort] = useState<string>("");
+  const [sort, setSort] = useState<string>("breed:asc");
 
   const navigate = useNavigate();
 
@@ -37,10 +37,6 @@ export default function Dashboard() {
 
     fetchData();
   }, [pageLink, navigate, breeds, selectedBreed, sort]);
-
-  useEffect(() => {
-    console.log(breeds);
-  });
 
   return (
     <div className="flex flex-col items-center w-full">

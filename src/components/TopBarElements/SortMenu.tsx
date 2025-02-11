@@ -17,8 +17,8 @@ export default function SortMenu({ setSort }: SortMenuProps) {
           onChange={(e) => setSort(e.target.value)}
         >
           <option value="" disabled selected></option>
-          <option value="breed:asc">breed a-z</option>
-          <option value="breed:desc">breed z-a</option>
+          <option value="breed:asc">breed A-Z</option>
+          <option value="breed:desc">breed Z-A</option>
           <option value="age:asc">youngest - oldest</option>
           <option value="age:desc">oldest - youngest</option>
         </select>

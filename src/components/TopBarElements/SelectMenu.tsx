@@ -29,6 +29,7 @@ export default function SelectMenu({ breeds, setBreeds, setSelectedBreed }: Sele
           onChange={(e) => setSelectedBreed(e.target.value)}
         >
           <option value="" disabled selected></option>
+          <option value="">All</option>
           {breeds?.map((breed, index) => (
             <option value={breed} key={index}>
               {breed}

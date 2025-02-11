@@ -18,17 +18,17 @@ export async function fetchDogs(
   setLoading: Dispatch<SetStateAction<boolean>>,
   setDogsArray: Dispatch<SetStateAction<Dog[]>>
 ): Promise<boolean> {
-  let url = "";
+  const baseUrl = `https://frontend-take-home-service.fetch.com${pageLink}`.split("&breeds")[0];
 
-  if (selectedBreed && !sort) {
-    url = `https://frontend-take-home-service.fetch.com${pageLink}&breeds=${selectedBreed}`;
-  } else if (!selectedBreed && sort) {
-    url = `https://frontend-take-home-service.fetch.com${pageLink}&sort=${sort}`;
-  } else if (selectedBreed && sort) {
-    url = `https://frontend-take-home-service.fetch.com${pageLink}&breeds=${selectedBreed}&sort=${sort}`;
-  } else {
-    url = `https://frontend-take-home-service.fetch.com${pageLink}`;
-  }
+  const params = new URLSearchParams();
+  if (selectedBreed) params.set("breeds", selectedBreed);
+  if (sort) params.set("sort", sort);
+
+  const separator = baseUrl.includes("?") ? "&" : "?";
+  const url = params.toString() ? `${baseUrl}${separator}${params.toString()}` : baseUrl;
+
+  console.log("Generated URL:", url);
+  console.log("pageLink:", pageLink);
 
   try {
     setLoading(true);
@@ -41,7 +41,7 @@ export async function fetchDogs(
     });
 
     if (!dogIds.ok) {
-      if (dogIds.status === 401) return false; // Unauthorized, return false
+      if (dogIds.status === 401) return false;
       throw new Error(`Failed to fetch: ${dogIds.status}`);
     }
 
@@ -58,7 +58,7 @@ export async function fetchDogs(
       });
 
       if (!arrOfDogs.ok) {
-        if (arrOfDogs.status === 401) return false; // Unauthorized, return false
+        if (arrOfDogs.status === 401) return false;
         throw new Error(`Failed to fetch: ${arrOfDogs.status}`);
       }
 
