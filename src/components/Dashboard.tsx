@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { fetchDogs } from "../api/fetchDogs";
 import DogCard from "./DogCard";
 import { useNavigate } from "react-router-dom";
+import TopBar from "./TopBar";
+import Pagination from "./Pagination";
+import { PulseLoader } from "react-spinners";
 
 interface Dog {
   id: string;
@@ -18,6 +21,7 @@ export default function Dashboard() {
   const [next, setNext] = useState<string>("");
   const [prev, setPrev] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
+  const [breeds, setBreeds] = useState<string[]>([]);
 
   const navigate = useNavigate();
 
@@ -33,22 +37,24 @@ export default function Dashboard() {
   }, [pageLink, navigate]);
 
   return (
-    <div className="flex flex-col items-center">
-      {loading ? <p>loading...</p> : <></>}
-      <div className="flex flex-wrap justify-evenly w-2/3 mt-24">
-        {dogsArray?.map((dog) => (
-          <DogCard key={dog.id} dog={dog} />
-        ))}
-      </div>
-      <div className="mb-12">
-        <button className={`bg-green-500 w-12 h-8 ${!prev ? "opacity-50 cursor-not-allowed" : ""}`} onClick={() => setPageLink(prev)} disabled={!prev}>
-          prev
-        </button>
-
-        <button className={`bg-green-500 w-12 h-8 ${!next ? "opacity-50 cursor-not-allowed" : ""}`} onClick={() => setPageLink(next)} disabled={!next}>
-          next
-        </button>
-      </div>
+    <div className="flex flex-col items-center w-full">
+      <TopBar setBreeds={setBreeds} breeds={breeds} />
+      {loading ? (
+        <div className="absolute flex justify-center items-center w-full h-screen">
+          <PulseLoader color="#74d463" />
+        </div>
+      ) : (
+        <>
+          <div className="flex flex-wrap justify-center w-5/6 mt-12 z-0">
+            {dogsArray?.map((dog) => (
+              <DogCard key={dog.id} dog={dog} />
+            ))}
+          </div>
+          <div className="mb-12">
+            <Pagination setPageLink={setPageLink} prev={prev} next={next} />
+          </div>
+        </>
+      )}
     </div>
   );
 }
