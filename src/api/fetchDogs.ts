@@ -11,14 +11,28 @@ interface Dog {
 
 export async function fetchDogs(
   pageLink: string,
+  selectedBreed: string,
+  sort: string,
   setNext: Dispatch<SetStateAction<string>>,
   setPrev: Dispatch<SetStateAction<string>>,
   setLoading: Dispatch<SetStateAction<boolean>>,
   setDogsArray: Dispatch<SetStateAction<Dog[]>>
 ): Promise<boolean> {
+  let url = "";
+
+  if (selectedBreed && !sort) {
+    url = `https://frontend-take-home-service.fetch.com${pageLink}&breeds=${selectedBreed}`;
+  } else if (!selectedBreed && sort) {
+    url = `https://frontend-take-home-service.fetch.com${pageLink}&sort=${sort}`;
+  } else if (selectedBreed && sort) {
+    url = `https://frontend-take-home-service.fetch.com${pageLink}&breeds=${selectedBreed}&sort=${sort}`;
+  } else {
+    url = `https://frontend-take-home-service.fetch.com${pageLink}`;
+  }
+
   try {
     setLoading(true);
-    const dogIds = await fetch(`https://frontend-take-home-service.fetch.com${pageLink}`, {
+    const dogIds = await fetch(`${url}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

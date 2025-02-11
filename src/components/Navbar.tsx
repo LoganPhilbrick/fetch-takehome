@@ -59,32 +59,35 @@ export default function Navbar() {
                   isToggleOpen ? "visible opacity-100 backdrop-blur-sm" : "invisible opacity-0"
                 }`}
               >
-                <li role="none" className="flex items-stretch">
+                <li role="none" className="flex items-stretch transition duration-200 ease-in-out hover:scale-105">
                   <a
                     role="menuitem"
                     aria-haspopup="false"
                     className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
                     href="javascript:void(0)"
                   >
+                    <img className="w-6" src="https://img.icons8.com/?size=100&id=83326&format=png&color=FD7E14" alt="fetch logo" />
                     <span>Home</span>
                   </a>
                 </li>
 
-                <li role="none" className="flex items-stretch">
+                <li role="none" className="flex items-stretch transition duration-200 ease-in-out hover:scale-105">
                   <a
                     role="menuitem"
                     aria-haspopup="false"
-                    className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500 focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
+                    className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500  focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
                     href="javascript:void(0)"
                   >
-                    <span>About</span>
+                    {" "}
+                    <img className="w-6" src="https://img.icons8.com/?size=100&id=85033&format=png&color=FD7E14" alt="fetch logo" />
+                    <span>Favorites</span>
                   </a>
                 </li>
               </ul>
 
               <div className="flex items-center px-6 ml-auto lg:ml-0 lg:p-0">
                 <button
-                  className="inline-flex items-center justify-center h-10 gap-2 px-5 text-sm font-medium tracking-wide text-white transition duration-300 rounded shadow-md whitespace-nowrap bg-red-500 shadow-red-200 hover:bg-red-600 hover:shadow-sm hover:shadow-red-200 focus:bg-red-700 focus:shadow-sm focus:shadow-red-200 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-red-300 disabled:bg-red-300 disabled:shadow-none"
+                  className="inline-flex items-center justify-center h-10 gap-2 px-5 text-sm font-medium tracking-wide text-white transition duration-300 rounded shadow-md whitespace-nowrap bg-red-500 shadow-red-200 transition duration-200 ease-in-out hover:scale-105 hover:bg-red-600 hover:shadow-sm hover:shadow-red-200 focus:bg-red-700 focus:shadow-sm focus:shadow-red-200 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-red-300 disabled:bg-red-300 disabled:shadow-none"
                   onClick={handleLogout}
                 >
                   <span>Logout</span>

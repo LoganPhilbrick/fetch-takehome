@@ -5,10 +5,28 @@ import { useNavigate } from "react-router-dom";
 export default function LoginCard() {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [emailError, setEmailError] = useState<string>("");
+  const [nameError, setNameError] = useState<string>("");
   const navigate = useNavigate();
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
+
+    if (!name || !email) {
+      if (!name) {
+        setNameError("Name is required");
+      } else {
+        setNameError("");
+      }
+      if (!email) {
+        setEmailError("Email is required");
+      } else {
+        setEmailError("");
+      }
+      return; // Stop execution if validation fails
+    }
+
+    // Proceed with login if both fields are provided
     login({ name, email }).then(() => navigate("/Dashboard"));
   };
 
@@ -34,6 +52,7 @@ export default function LoginCard() {
                 type="text"
                 name="id-b13"
                 value={name}
+                required
                 placeholder="your name"
                 onChange={(e) => setName(e.target.value)}
                 className="peer relative h-10 w-full rounded border border-slate-200 px-4 pr-12 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
@@ -45,7 +64,7 @@ export default function LoginCard() {
                 Your name
               </label>
               <small className="absolute flex w-full justify-between px-4 py-1 text-xs text-slate-400 transition peer-invalid:text-pink-500">
-                <span>Enter your name</span>
+                {nameError ? <p className="text-red-500">{nameError}*</p> : <span>Enter your name</span>}
               </small>
             </div>
             {/*      <!-- Input field --> */}
@@ -56,6 +75,7 @@ export default function LoginCard() {
                 name="id-b03"
                 value={email}
                 placeholder="your email"
+                required
                 onChange={(e) => setEmail(e.target.value)}
                 className="peer relative h-10 w-full rounded border border-slate-200 px-4 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
               />
@@ -66,7 +86,7 @@ export default function LoginCard() {
                 Your email
               </label>
               <small className="absolute flex w-full justify-between px-4 py-1 text-xs text-slate-400 transition peer-invalid:text-pink-500">
-                <span>Enter your email address</span>
+                {emailError ? <p className="text-red-500">{emailError}*</p> : <span>Enter your name</span>}
               </small>
             </div>
           </div>
