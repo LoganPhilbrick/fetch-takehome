@@ -24,6 +24,7 @@ export default function Dashboard() {
   const [breeds, setBreeds] = useState<string[]>([]);
   const [selectedBreed, setSelectedBreed] = useState<string>("");
   const [sort, setSort] = useState<string>("breed:asc");
+  const [zipCodeFilter, setZipCodeFilter] = useState<string>("");
 
   const navigate = useNavigate();
 
@@ -40,7 +41,7 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <TopBar setBreeds={setBreeds} setSelectedBreed={setSelectedBreed} breeds={breeds} setSort={setSort} />
+      <TopBar setBreeds={setBreeds} setSelectedBreed={setSelectedBreed} breeds={breeds} setSort={setSort} setZipCodeFilter={setZipCodeFilter} />
       {loading ? (
         <div className="absolute flex justify-center items-center w-full h-screen">
           <PulseLoader color="#74d463" />
@@ -48,9 +49,11 @@ export default function Dashboard() {
       ) : (
         <>
           <div className="flex flex-wrap justify-center w-5/6 mt-12 z-0">
-            {dogsArray?.map((dog) => (
-              <DogCard key={dog.id} dog={dog} />
-            ))}
+            {dogsArray
+              ?.filter((dog) => !zipCodeFilter || dog.zip_code.startsWith(String(zipCodeFilter)))
+              .map((dog) => (
+                <DogCard key={dog.id} dog={dog} />
+              ))}
           </div>
           <div className="mb-12">
             <Pagination setPageLink={setPageLink} prev={prev} next={next} />
