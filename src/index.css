@@ -6,8 +6,9 @@
   font-weight: 400;
 
   /* color-scheme: light dark; */
+  --main-bg-color: #ebebe1;
   color: rgba(24, 24, 24, 0.87);
-  background-color: #ebebe1;
+  background-color: var(--main-bg-color);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
