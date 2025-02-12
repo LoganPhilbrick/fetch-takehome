@@ -1,7 +1,7 @@
 interface PaginationProps {
-  setPageLink: React.Dispatch<React.SetStateAction<string>>; // Typing the setPageLink function
-  prev: string; // prev can be a string or null if there's no previous page
-  next: string; // next can be a string or null if there's no next page
+  setPageLink: React.Dispatch<React.SetStateAction<string>>;
+  prev: string;
+  next: string;
 }
 
 export default function Pagination({ setPageLink, prev, next }: PaginationProps) {

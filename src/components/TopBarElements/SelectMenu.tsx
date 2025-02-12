@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
-import { fetchBreeds } from "../../api/fetchbreeds";
+import { getBreeds } from "../../api/getBreeds";
 
 interface SelectMenuProps {
   breeds: string[];
@@ -9,7 +9,7 @@ interface SelectMenuProps {
 
 export default function SelectMenu({ breeds, setBreeds, setSelectedBreed }: SelectMenuProps) {
   useEffect(() => {
-    fetchBreeds()
+    getBreeds()
       .then((breedsArray) => {
         setBreeds(breedsArray);
       })

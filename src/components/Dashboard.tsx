@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { fetchDogs } from "../api/fetchDogs";
+import { getDogIDs } from "../api/getDogIDs";
 import DogCard from "./DogCard";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+import { getDogData } from "../api/getDogData";
 import TopBar from "./TopBar";
 import Pagination from "./Pagination";
 import { PulseLoader } from "react-spinners";
@@ -14,30 +15,42 @@ interface Dog {
   zip_code: string;
   breed: string;
 }
+interface DashboardProps {
+  favorites: string[];
+  loading: boolean;
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  setFavorites: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
-export default function Dashboard() {
+export default function Dashboard({ favorites, loading, setLoading, setFavorites }: DashboardProps) {
   const [dogsArray, setDogsArray] = useState<Dog[]>([]);
   const [pageLink, setPageLink] = useState<string>("/dogs/search?size=25&from=0");
   const [next, setNext] = useState<string>("");
   const [prev, setPrev] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
   const [breeds, setBreeds] = useState<string[]>([]);
   const [selectedBreed, setSelectedBreed] = useState<string>("");
   const [sort, setSort] = useState<string>("breed:asc");
   const [zipCodeFilter, setZipCodeFilter] = useState<string>("");
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const success = await fetchDogs(pageLink, selectedBreed, sort, setNext, setPrev, setLoading, setDogsArray);
-      if (!success) {
-        navigate("/login", { replace: true });
+    try {
+      async function getDogDataFunc() {
+        setLoading(true);
+        const dogIDs = await getDogIDs(pageLink, selectedBreed, sort);
+        setDogsArray(await getDogData(dogIDs.resultIds));
+        setNext(dogIDs.next);
+        setPrev(dogIDs.prev);
+        setLoading(false);
       }
-    };
 
-    fetchData();
-  }, [pageLink, navigate, breeds, selectedBreed, sort]);
+      getDogDataFunc();
+    } catch (error) {
+      setLoading(false);
+      console.log("Error getting dog ids from getDogIDs:", error);
+    }
+  }, [pageLink, selectedBreed, setLoading, sort]);
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -52,7 +65,7 @@ export default function Dashboard() {
             {dogsArray
               ?.filter((dog) => !zipCodeFilter || dog.zip_code.startsWith(String(zipCodeFilter)))
               .map((dog) => (
-                <DogCard key={dog.id} dog={dog} />
+                <DogCard key={dog.id} dog={dog} favorites={favorites} setFavorites={setFavorites} />
               ))}
           </div>
           <div className="mb-12">

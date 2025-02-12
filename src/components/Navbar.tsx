@@ -15,7 +15,6 @@ export default function Navbar() {
 
   const handleLogout = () => {
     logout();
-
     navigate("/login");
   };
 
@@ -59,7 +58,7 @@ export default function Navbar() {
                   isToggleOpen ? "visible opacity-100 backdrop-blur-sm" : "invisible opacity-0"
                 }`}
               >
-                <li role="none" className="flex items-stretch transition duration-200 ease-in-out hover:scale-105">
+                <li role="none" className="flex items-stretch transition duration-200 ease-in-out hover:scale-105" onClick={() => navigate("/Dashboard")}>
                   <a
                     role="menuitem"
                     aria-haspopup="false"
@@ -71,14 +70,13 @@ export default function Navbar() {
                   </a>
                 </li>
 
-                <li role="none" className="flex items-stretch transition duration-200 ease-in-out hover:scale-105">
+                <li role="none" className="flex items-stretch transition duration-200 ease-in-out hover:scale-105" onClick={() => navigate("/Favorites")}>
                   <a
                     role="menuitem"
                     aria-haspopup="false"
                     className="flex items-center gap-2 py-4 transition-colors duration-300 hover:text-emerald-500  focus:text-emerald-600 focus:outline-none focus-visible:outline-none lg:px-8"
                     href="javascript:void(0)"
                   >
-                    {" "}
                     <img className="w-6" src="https://img.icons8.com/?size=100&id=85033&format=png&color=FD7E14" alt="fetch logo" />
                     <span>Favorites</span>
                   </a>
