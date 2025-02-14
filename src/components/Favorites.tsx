@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import DogCard from "./DogCard";
-import { PulseLoader } from "react-spinners";
 import { getDogData } from "../api/getDogData";
 import { getMatch } from "../api/getMatch";
 import MatchCard from "./MatchCard";
 import { useReward } from "react-rewards";
+import Spinner from "./Spinner";
 
 interface Dog {
   id: string;
@@ -71,7 +71,7 @@ export default function Favorites({ favorites, loading, setLoading, setFavorites
     <div className="flex flex-col items-center w-full">
       {loading ? (
         <div className="absolute flex justify-center items-center w-full h-screen">
-          <PulseLoader color="#74d463" />
+          <Spinner />
         </div>
       ) : (
         <>

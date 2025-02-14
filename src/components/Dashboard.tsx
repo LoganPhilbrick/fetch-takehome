@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import { getDogIDs } from "../api/getDogIDs";
 import DogCard from "./DogCard";
-// import { useNavigate } from "react-router-dom";
 import { getDogData } from "../api/getDogData";
 import TopBar from "./TopBar";
 import Pagination from "./Pagination";
-import { PulseLoader } from "react-spinners";
+import Spinner from "./Spinner";
 
 interface Dog {
   id: string;
@@ -57,7 +56,7 @@ export default function Dashboard({ favorites, loading, setLoading, setFavorites
       <TopBar setBreeds={setBreeds} setSelectedBreed={setSelectedBreed} breeds={breeds} setSort={setSort} setZipCodeFilter={setZipCodeFilter} />
       {loading ? (
         <div className="absolute flex justify-center items-center w-full h-screen">
-          <PulseLoader color="#74d463" />
+          <Spinner />
         </div>
       ) : (
         <>
