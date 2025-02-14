@@ -58,7 +58,7 @@ export default function Dashboard({ favorites, loading, setLoading, setFavorites
         </div>
       ) : (
         <>
-          <div className="flex flex-wrap justify-center w-5/6 mt-12 z-0">
+          <div className="flex flex-wrap justify-center w-full sm:w-5/6 mt-12 z-0">
             {dogsArray
               ?.filter((dog) => !zipCodeFilter || dog.zip_code.startsWith(String(zipCodeFilter)))
               .map((dog) => (

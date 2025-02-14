@@ -86,15 +86,18 @@ export default function Favorites({ favorites, loading, setLoading, setFavorites
               </button>
             </div>
           </div>
-
-          <div className="flex flex-wrap justify-center w-5/6 mt-12 z-0">
-            {favoriteDogs?.map((dog) => (
-              <DogCard key={dog.id} dog={dog} favorites={favorites} setFavorites={setFavorites} />
-            ))}
-          </div>
           {match ? (
-            <div className="absolute top-0 z-40 flex justify-center items-center w-full h-full bg-(--main-bg-color)">
-              <div className="absolute flex justify-center items-center z-10 mt-88" id="rewardId"></div>
+            <></>
+          ) : (
+            <div className="flex flex-wrap justify-center w-5/6 mt-12 z-0">
+              {favoriteDogs?.map((dog) => (
+                <DogCard key={dog.id} dog={dog} favorites={favorites} setFavorites={setFavorites} />
+              ))}
+            </div>
+          )}
+
+          {match ? (
+            <div className="absolute top-0 z-40 flex justify-center items-center w-full h-full bg-(--main-bg-color)" id="rewardId">
               <MatchCard match={match} />
             </div>
           ) : (

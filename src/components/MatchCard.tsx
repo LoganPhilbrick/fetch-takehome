@@ -31,16 +31,16 @@ export default function MatchCard({ match }: MatchCardProps) {
     navigate("/Dashboard");
   };
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center w-full">
       {/*<!-- Component: Image overlay card --> */}
-      <div className="overflow-hidden w-112 bg-white text-slate-500 shadow-xl shadow-black/25">
+      <div className="overflow-hidden w-4/6 sm:w-112 bg-white text-slate-500 shadow-xl shadow-black/25">
         {/*  <!-- Image --> */}
-        <figure className="relative">
-          <img src={match?.img} alt="card image" className="aspect-square object-cover w-full" />
-          <figcaption className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-neutral-900 p-6 text-white">
-            <h3 className="text-3xl font-medium ">{match?.name}</h3>
-            <p className="text-xl opacity-75">{match?.age} year old </p>
-            <p className="text-xl opacity-75">{match?.breed}</p>
+        <figure className="relative w-full">
+          <img src={match?.img} alt="card image" className="aspect-square object-cover w-full " />
+          <figcaption className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-neutral-900 p-4 sm:p-6 text-white">
+            <h3 className="text-2xl sm:text-3xl font-medium ">{match?.name}</h3>
+            <p className="text-lg sm:text-xl opacity-75">{match?.age} year old </p>
+            <p className="text-lg sm:text-xl opacity-75">{match?.breed}</p>
           </figcaption>
         </figure>
       </div>
