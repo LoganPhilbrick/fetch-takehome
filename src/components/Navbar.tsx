@@ -10,7 +10,6 @@ export default function Navbar() {
 
   const { pathname } = useLocation();
 
-  // Don't render navbar on the login page
   if (pathname === "/login") return null;
 
   const handleLogout = () => {

@@ -24,7 +24,7 @@ export default function MatchCard({ match }: MatchCardProps) {
       setShowButton(true);
     }, 3000);
 
-    return () => clearTimeout(timer); // Cleanup timeout on unmount
+    return () => clearTimeout(timer);
   }, []);
 
   const handleClick = () => {

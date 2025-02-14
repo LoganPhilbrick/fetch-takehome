@@ -31,8 +31,6 @@ export default function Dashboard({ favorites, loading, setLoading, setFavorites
   const [sort, setSort] = useState<string>("breed:asc");
   const [zipCodeFilter, setZipCodeFilter] = useState<string>("");
 
-  // const navigate = useNavigate();
-
   useEffect(() => {
     try {
       async function getDogDataFunc() {

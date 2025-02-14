@@ -20,7 +20,6 @@ function App() {
       <div className="flex justify-center">
         <Routes>
           <Route path="/login" element={<LoginCard />} />
-          {/* Protected Routes */}
           <Route element={<ProtectedRoute />}>
             <Route path="/dashboard" element={<Dashboard setFavorites={setFavorites} favorites={favorites} loading={loading} setLoading={setLoading} />} />
             <Route path="/favorites" element={<Favorites setFavorites={setFavorites} favorites={favorites} loading={loading} setLoading={setLoading} />} />
