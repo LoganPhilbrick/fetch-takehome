@@ -31,9 +31,9 @@ export default function LoginCard() {
   };
 
   return (
-    <>
+    <div className="flex justify-center items-center w-full h-screen">
       {/*<!-- Component: Card with form --> */}
-      <form className="overflow-hidden rounded-4xl bg-white text-slate-500 shadow-md shadow-slate-200 w-96 h-88.8 mt-64">
+      <form className="overflow-hidden rounded-4xl bg-white text-slate-500 shadow-md shadow-slate-200 w-96 h-88.8 ">
         <div>
           <a id="WindUI" aria-label="WindUI logo" aria-current="page" className="flex justify-center font-medium items-center gap-2 whitespace-nowrap pt-4 pb-3 text-lg " href="javascript:void(0)">
             <img className="w-18" src="https://img.icons8.com/?size=100&id=CJMxOJZyZfby&format=png&color=FD7E14" alt="fetch logo" />
@@ -103,6 +103,6 @@ export default function LoginCard() {
         </div>
       </form>
       {/*<!-- End Card with form --> */}
-    </>
+    </div>
   );
 }
