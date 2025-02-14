@@ -39,7 +39,7 @@ export default function MatchCard({ match }: MatchCardProps) {
           <img src={match?.img} alt="card image" className="aspect-square object-cover w-full " />
           <figcaption className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-neutral-900 p-4 sm:p-6 text-white">
             <h3 className="text-2xl sm:text-3xl font-medium ">{match?.name}</h3>
-            <p className="text-lg sm:text-xl opacity-75">{match?.age} year old </p>
+            <p className="text-lg sm:text-xl opacity-75">{match?.age == 0 ? "less than 1" : match?.age} year old </p>
             <p className="text-lg sm:text-xl opacity-75">{match?.breed}</p>
           </figcaption>
         </figure>
