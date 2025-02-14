@@ -3,6 +3,8 @@ import DogCard from "./DogCard";
 import { PulseLoader } from "react-spinners";
 import { getDogData } from "../api/getDogData";
 import { getMatch } from "../api/getMatch";
+import MatchCard from "./MatchCard";
+import { useReward } from "react-rewards";
 
 interface Dog {
   id: string;
@@ -12,10 +14,6 @@ interface Dog {
   zip_code: string;
   breed: string;
 }
-
-// interface Match {
-//   match: string | undefined;
-// }
 
 interface FavoritesProps {
   favorites: string[];
@@ -27,6 +25,7 @@ interface FavoritesProps {
 export default function Favorites({ favorites, loading, setLoading, setFavorites }: FavoritesProps) {
   const [favoriteDogs, setFavoriteDogs] = useState<Dog[]>([]);
   const [match, setMatch] = useState<Dog | null>(null);
+  const { reward } = useReward("rewardId", "confetti");
 
   useEffect(() => {
     try {
@@ -57,6 +56,17 @@ export default function Favorites({ favorites, loading, setLoading, setFavorites
     }
   };
 
+  useEffect(() => {
+    if (match) {
+      reward();
+    }
+  }, [match, reward]);
+
+  useEffect(() => {
+    document.body.classList.toggle("overflow-hidden", !!match);
+    return () => document.body.classList.remove("overflow-hidden");
+  }, [match]);
+
   return (
     <div className="flex flex-col items-center w-full">
       {loading ? (
@@ -76,12 +86,20 @@ export default function Favorites({ favorites, loading, setLoading, setFavorites
               </button>
             </div>
           </div>
-          <div>{match?.name}</div>
+
           <div className="flex flex-wrap justify-center w-5/6 mt-12 z-0">
             {favoriteDogs?.map((dog) => (
               <DogCard key={dog.id} dog={dog} favorites={favorites} setFavorites={setFavorites} />
             ))}
           </div>
+          {match ? (
+            <div className="absolute top-0 z-40 flex justify-center items-center w-full h-full bg-(--main-bg-color)">
+              <div className="absolute flex justify-center items-center z-10 mt-88" id="rewardId"></div>
+              <MatchCard match={match} />
+            </div>
+          ) : (
+            <></>
+          )}
         </>
       )}
     </div>

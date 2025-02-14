@@ -5,6 +5,7 @@ import LoginCard from "./components/LoginCard";
 import Dashboard from "./components/Dashboard";
 import Favorites from "./components/Favorites";
 import { useState } from "react";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -19,8 +20,11 @@ function App() {
       <div className="flex justify-center">
         <Routes>
           <Route path="/login" element={<LoginCard />} />
-          <Route path="/dashboard" element={<Dashboard setFavorites={setFavorites} favorites={favorites} loading={loading} setLoading={setLoading} />} />
-          <Route path="/favorites" element={<Favorites setFavorites={setFavorites} favorites={favorites} loading={loading} setLoading={setLoading} />} />
+          {/* Protected Routes */}
+          <Route element={<ProtectedRoute />}>
+            <Route path="/dashboard" element={<Dashboard setFavorites={setFavorites} favorites={favorites} loading={loading} setLoading={setLoading} />} />
+            <Route path="/favorites" element={<Favorites setFavorites={setFavorites} favorites={favorites} loading={loading} setLoading={setLoading} />} />
+          </Route>
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </div>
