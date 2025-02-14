@@ -1,15 +1,3 @@
-// import { Dispatch, SetStateAction } from "react";
-// import { getDogData } from "./getDogData";
-
-// interface Dog {
-//   id: string;
-//   img: string;
-//   name: string;
-//   age: number;
-//   zip_code: string;
-//   breed: string;
-// }
-
 export async function getDogIDs(pageLink: string, selectedBreed: string, sort: string) {
   const baseUrl = `https://frontend-take-home-service.fetch.com${pageLink}`.split("&breeds")[0];
 
